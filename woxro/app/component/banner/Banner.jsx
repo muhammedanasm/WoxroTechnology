@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
-import { cubesConfig } from "./Data";
+import { cubesConfig, images } from "./Data";
 import "./banner.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -166,17 +166,19 @@ export default function Banner() {
               {/* {renderFaces()} */}
               {/* Loop 1-6 for the faces */}
               {[1, 2, 3, 4, 5, 6].map((faceNum) => {
-                // Since you have 6 images and 6 faces:
-                // Face 1 uses img1.svg
-                // Face 2 uses img2.svg
-                // ...
-                // Face 6 uses img6.svg
-                const imgNumber = faceNum;
+                // Compute a sequential image index across cubes and faces.
+                // This will cycle through the available `images` list.
+                const baseIndex = cubeIndex * 6;
+                const imageIndex = (baseIndex + (faceNum - 1)) % images.length;
+                const filename = images[imageIndex];
 
                 return (
-                  <div key={faceNum} className={`box-face face-${faceNum}`}>
+                  <div
+                    key={`${key}-face-${faceNum}`}
+                    className={`box-face face-${faceNum}`}
+                  >
                     <img
-                      src={`/images/img${imgNumber}.svg`}
+                      src={`/images/${filename}`}
                       alt={`Face ${faceNum}`}
                       draggable="false"
                     />
