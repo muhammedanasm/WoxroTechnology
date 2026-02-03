@@ -22,6 +22,8 @@ export default function Banner() {
     return start + (end - start) * progress;
   };
 
+  // test
+
   useLayoutEffect(() => {
     // 1. Initialize Smooth Scroll
     const lenis = new Lenis();
